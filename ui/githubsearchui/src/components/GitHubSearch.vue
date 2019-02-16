@@ -1,5 +1,10 @@
 <template>
   <div>
+    <md-toolbar class="md-accent" md-elevation="1">
+      <h3 class="md-title" style="flex: 1">Hi! {{getUsername}}</h3>
+      <!-- <span class="md-title">Hi! {{getUsername}}</span> -->
+      <md-button class="md-primary" @click="logout()">Logout</md-button>
+    </md-toolbar>
     <div>
       <h1>Search GitHub Users</h1>
     </div>
@@ -7,7 +12,7 @@
       <div class="md-layout-item md-size-15"></div>
       <div class="md-layout-item">
         <md-field md-inline>
-          <label>Inline</label>
+          <label>Enter username...</label>
           <md-input v-model="inline"></md-input>
         </md-field>
       </div>
@@ -88,10 +93,6 @@
             <span class="md-list-item-text">{{following}}</span>
           </md-list-item>
         </md-list>
-        <md-card-actions>
-          <md-button>Action</md-button>
-          <md-button>Action</md-button>
-        </md-card-actions>
       </md-card>
       <md-card v-else class="md-primary" style="padding: 20px">
         <h1>The user you have enetered is Invalid. Please try again.</h1>
@@ -104,6 +105,8 @@
 import Vue from 'vue'
 import { MdField, MdHighlightText, MdCard, MdIcon, MdList, MdProgress, MdButton } from 'vue-material/dist/components'
 import axios from 'axios'
+import { mapGetters, mapMutations } from 'vuex'
+
 
 Vue.use(MdField)
 Vue.use(MdCard)
@@ -132,6 +135,21 @@ export default {
       public_gists: 0,
       followers: 0,
       following: 0,
+    }
+  },
+  mounted() {
+    if(!this.getIsLoggedIn) {
+      this.$router.push('/login')
+    }
+  },
+  computed: {
+    ...mapGetters(['getIsLoggedIn', 'getUsername'])
+  },
+  methods: {
+    ...mapMutations(['setIsLoggedIn']),
+    logout() {
+      this.setIsLoggedIn(false)
+      this.$router.push('/login')
     }
   },
   watch: {

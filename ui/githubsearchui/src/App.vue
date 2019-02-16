@@ -1,25 +1,17 @@
 <template>
   <div id="app">
-    <md-toolbar class="md-accent" md-elevation="1">
-      <span class="md-title">Hi!</span>
-      <md-button class="md-primary">Create</md-button>
-    </md-toolbar>
-    <GitHubSearch/>
+    <router-view/>
   </div>
 </template>
 
 <script>
 import Vue from 'vue'
-import GitHubSearch from './components/GitHubSearch.vue'
 import { MdToolbar } from 'vue-material/dist/components'
 
 Vue.use(MdToolbar)
 
 export default {
   name: 'app',
-  components: {
-    GitHubSearch
-  }
 }
 </script>
 
