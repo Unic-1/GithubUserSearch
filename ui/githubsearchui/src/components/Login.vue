@@ -18,8 +18,11 @@
       <div class="md-layout-item">
         <md-field md-inline>
           <label>Password</label>
-          <md-input v-model="password"></md-input>
+          <md-input v-model="password" type="password"></md-input>
         </md-field>
+      </div>
+      <div v-show="isInvalid" class="md-layout-item" style="margin-top: 30px;">
+        <h4 style="color: red">Invalid Username or password.</h4>
       </div>
     <div  class="md-layout-item">
       <md-button class="md-primary" @click="createUser()">Login</md-button>
@@ -48,26 +51,31 @@ export default {
   data() {
     return {
       username: '',
-      password: ''
+      password: '',
+      isInvalid: false
     }
   },
   methods: {
       ...mapMutations(['setIsLoggedIn', 'setUsername']),
     createUser() {        
     //   axios.post('localhost:3000/login', {
-    //     username: 'RIGDEN',
-    //     password: '12345'
+    //     username: 'user',
+    //     password: '1234'
     //   }).then( res => {
-    //     console.log(res)
+    //     this.setIsLoggedIn(true)
+    //      this.setUsername(this.username)
+    //      this.$router.push('/search')
     //   })
     //   .catch( e => {
-    //     console.log(e)
+    //      this.isInvalid = true
     //   })
-    axios.get('localhost:3020/products/1').then(res=>console.log(res))
-    .catch(e=>console.log(e))
-    // this.setIsLoggedIn(true)
-    // this.setUsername(this.username)
-    // this.$router.push('/search')
+      if(this.username === 'root' && this.password === 'toor') {
+        this.setIsLoggedIn(true)
+        this.setUsername(this.username)
+        this.$router.push('/search')
+      } else {
+        this.isInvalid = true
+      }
     },
     createAccount() {
         this.$router.push('/signup')

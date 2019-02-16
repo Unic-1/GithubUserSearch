@@ -18,7 +18,7 @@
       <div class="md-layout-item">
         <md-field md-inline>
           <label>Password</label>
-          <md-input v-model="password"></md-input>
+          <md-input v-model="password" type="password"></md-input>
         </md-field>
       </div>
     <div  class="md-layout-item">
